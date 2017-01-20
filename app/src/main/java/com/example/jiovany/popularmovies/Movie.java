@@ -3,11 +3,13 @@ package com.example.jiovany.popularmovies;
 import com.example.jiovany.popularmovies.utils.Constants;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by jiovany on 1/17/17.
  */
 
-public class Movie {
+public class Movie implements Serializable{
     @SerializedName("poster_path")
     private String posterPath;
     private boolean adult;
@@ -152,5 +154,10 @@ public class Movie {
     public String getPosterCompleteUrl(boolean large) {
         String imageSize = large ? Constants.IMAGE_LARGE_SIZE : Constants.IMAGE_MEDIUM_SIZE;
         return Constants.IMAGE_BASE_URL.concat(imageSize).concat(getPosterPath());
+    }
+
+    public String getBackdropCompleteUrl(boolean large) {
+        String imageSize = large ? Constants.IMAGE_LARGE_SIZE : Constants.IMAGE_MEDIUM_SIZE;
+        return Constants.IMAGE_BASE_URL.concat(imageSize).concat(getBackdropPath());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.jiovany.popularmovies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnRequestFinish {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnRequestFinish, OnItemClick {
     private MoviesAdapter moviesAdapter;
     private RecyclerView moviesRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void initRecyclerView() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        moviesAdapter = new MoviesAdapter();
+        moviesAdapter = new MoviesAdapter(this);
         moviesRecyclerView.setAdapter(moviesAdapter);
         moviesRecyclerView.hasFixedSize();
         moviesRecyclerView.setLayoutManager(gridLayoutManager);
@@ -130,5 +131,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Toast.makeText(getApplicationContext(), getString(errorMessageResId), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Movie movie) {
+        Intent intentGoDetail = new Intent(MainActivity.this, MovieDetailActivity.class);
+        intentGoDetail.putExtra(MovieDetailActivity.MOVIE_KEY, movie);
+        startActivity(intentGoDetail);
     }
 }

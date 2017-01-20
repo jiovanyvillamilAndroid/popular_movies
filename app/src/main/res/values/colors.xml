@@ -9,4 +9,5 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorDarkMovieFooter">#CCBDBDBD</color>
+    <color name="colorDarkMovieFooterBlack">#CC212121</color>
 </resources>
