@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnRequestFinish, OnItemClick {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnRequestFinish<Movie>, OnItemClick {
     private MoviesAdapter moviesAdapter;
     private RecyclerView moviesRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;

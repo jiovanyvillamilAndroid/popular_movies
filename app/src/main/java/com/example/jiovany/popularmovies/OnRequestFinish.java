@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Created by jiovany on 1/19/17.
  */
 
-public interface OnRequestFinish {
-    void onSuccess(ArrayList<Movie> response);
+public interface OnRequestFinish<T>{
+    void onSuccess(ArrayList<T> response);
 
     void onFailure(int errorMessageResId);
 }
