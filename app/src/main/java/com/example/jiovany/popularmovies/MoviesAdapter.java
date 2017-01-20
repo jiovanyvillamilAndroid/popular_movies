@@ -2,7 +2,6 @@ package com.example.jiovany.popularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.jiovany.popularmovies.utils.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,7 +20,7 @@ import com.bumptech.glide.Glide;
  */
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
-    Movie[] moviesData;
+    List<Movie> moviesData;
 
     public MoviesAdapter() {
     }
@@ -32,15 +35,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
     @Override
     public void onBindViewHolder(MoviesViewHolder holder, int position) {
-        holder.bindData(moviesData[position]);
+        holder.bindData(moviesData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return moviesData != null ? moviesData.length : 0;
+        return moviesData != null ? moviesData.size() : 0;
     }
 
-    public void setMoviesData(Movie[] moviesData) {
+    public void setMoviesData(ArrayList<Movie> moviesData) {
         this.moviesData = moviesData;
         notifyDataSetChanged();
     }
@@ -66,7 +69,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
                     .crossFade()
                     .into(moviePosterImage);
             title.setText(movie.getTitle());
-            voteAverage.setText(String.valueOf(movie.getVoteAverage()));
+            voteAverage.setText(String.valueOf(movie.getVoteAverage()).concat(Constants.BLACK_STAR_UNICODE));
             releaseDate.setText(movie.getReleaseDate());
         }
 

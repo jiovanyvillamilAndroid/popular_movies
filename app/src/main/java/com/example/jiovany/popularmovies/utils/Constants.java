@@ -12,4 +12,6 @@ public class Constants {
     public static String HIGHEST_RATED = "top_rated";
     public static String MOST_POPULAR = "popular";
     public static String BASE_URL_MOVIES_DATA = "http://api.themoviedb.org/3/movie/";
+    public static String RESULTS_JSON_PARAMETER = "results";
+    public static String BLACK_STAR_UNICODE = "\u2605";
 }
