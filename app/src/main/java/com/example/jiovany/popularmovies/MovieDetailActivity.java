@@ -1,15 +1,26 @@
 package com.example.jiovany.popularmovies;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.example.jiovany.popularmovies.utils.Constants;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -33,11 +44,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-        getMovieFromIntent();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        backDrop = (ImageView)findViewById(R.id.iv_movie_poster);
+       /* getMovieFromIntent();
         initUI();
-        bindData();
+        bindData();*/
     }
-
+/*
     private void bindData(){
         Glide.with(this).
                 load(currentMovie.getBackdropCompleteUrl(true))
@@ -103,5 +118,5 @@ public class MovieDetailActivity extends AppCompatActivity {
         } else {
             finish();
         }
-    }
+    }*/
 }
