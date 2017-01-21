@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                swipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(getApplicationContext(), getString(errorMessageResId), Toast.LENGTH_LONG).show();
             }
         });

@@ -6,16 +6,19 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 
@@ -44,10 +47,29 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        backDrop = (ImageView)findViewById(R.id.iv_movie_poster);
+        AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.appbar);
+        poster = (ImageView)findViewById(R.id.iv_movie_poster);
+        final int initialPosterHeight = poster.getLayoutParams().height;
+        final int initialPosterWidth = poster.getLayoutParams().width;
+        final LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_container);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                float percent = (100 - ((verticalOffset)+528)*100/528);
+                float newHeight = initialPosterHeight - (initialPosterHeight*(percent/100));
+                float newWidth = initialPosterWidth - (initialPosterWidth*(percent/100));
+                Log.e("diffPercent",percent+"");
+                Log.e("initialPoster",initialPosterHeight+"");
+                Log.e("height",newHeight+"");
+                poster.getLayoutParams().height = Math.round(newHeight);
+                poster.getLayoutParams().width = Math.round(newWidth);
+                poster.requestLayout();
+                linearLayout.setPadding(0,poster.getLayoutParams().height / 2,0,0);
+            }
+        });
        /* getMovieFromIntent();
         initUI();
         bindData();*/
