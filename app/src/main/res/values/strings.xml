@@ -3,5 +3,12 @@
     <string name="title_most_popular">Most Popular</string>
     <string name="title_highest_rated">Highest Rated</string>
     <string name="response_error_message">Sorry, we can\'t retrieve the data</string>
-    <string name="response_empty_message">Sorry, we couldn\'t find any data</string>
+    <string name="response_empty_message">Sorry, we could not find any data</string>
+    <string name="backdrop_content_description">Backdrop of movie</string>
+    <string name="poster_content_description">Movie poster</string>
+    <string name="overview_title_movie_detail">Overview</string>
+    <string name="release_date_title_movie_detail">Release Date</string>
+    <string name="popularity_title_movie_detail">Popularity</string>
+    <string name="vote_count_title_movie_detail">Vote Count</string>
+    <string name="vote_average_title_movie_detail">Vote Average</string>
 </resources>

@@ -1,9 +1,5 @@
 package com.example.jiovany.popularmovies.utils;
 
-/**
- * Created by jiovany on 1/17/17.
- */
-
 public class Constants {
     public static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     public static String IMAGE_MEDIUM_SIZE = "w185";

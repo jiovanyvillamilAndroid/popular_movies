@@ -1,11 +1,5 @@
 package com.example.jiovany.popularmovies;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.bumptech.glide.Glide;
-import com.example.jiovany.popularmovies.utils.Constants;
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * Created by jiovany on 1/17/17.
- */
+import com.bumptech.glide.Glide;
+import com.example.jiovany.popularmovies.utils.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
     private List<Movie> moviesData;

@@ -9,8 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.Toast;
 
 import com.example.jiovany.popularmovies.utils.Constants;

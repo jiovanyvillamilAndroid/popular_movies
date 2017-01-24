@@ -1,10 +1,17 @@
 package com.example.jiovany.popularmovies;
 
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.jiovany.popularmovies.utils.Constants;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -28,6 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView popularity;
     private LinearLayout contentLinearLayout;
     private TextView toolbarSubtitle;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +53,27 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(currentMovie.getTitle());
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(currentMovie.getTitle());
+        }
         toolbarSubtitle.setText(String.valueOf(currentMovie.getVoteAverage()).concat(Constants.BLACK_STAR_UNICODE));
+    }
+
+    private void changeActionBarColor(int color) {
+        collapsingToolbarLayout.setBackgroundColor(color);
+        collapsingToolbarLayout.setContentScrimColor(color);
+        collapsingToolbarLayout.setStatusBarScrimColor(color);
+    }
+
+    private void changeStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
+        }
     }
 
     private void scalePosterOnCollapse() {
@@ -69,12 +97,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void bindData() {
-        Glide.with(this).
-                load(currentMovie.getBackdropCompleteUrl(true))
-                .centerCrop()
-                .into(backDrop);
-        Glide.with(this).
-                load(currentMovie.getPosterCompleteUrl(false))
+        loadBackDrop();
+        Glide.with(this)
+                .load(currentMovie.getPosterCompleteUrl(false))
                 .centerCrop()
                 .into(poster);
         overView.setText(currentMovie.getOverview());
@@ -84,7 +109,35 @@ public class MovieDetailActivity extends AppCompatActivity {
         popularity.setText(String.valueOf(currentMovie.getPopularity()));
     }
 
+    private void loadBackDrop() {
+        Glide.with(this)
+                .load(currentMovie.getBackdropCompleteUrl(true)).asBitmap()
+                .centerCrop()
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+                            @Override
+                            public void onGenerated(Palette palette) {
+                                int vibrantColor = palette.getVibrantColor(getResources().getColor(R.color.colorPrimary));
+                                int darkVibrantColor = palette.getDarkVibrantColor(getResources().getColor(R.color.colorPrimaryDark));
+                                changeActionBarColor(darkVibrantColor);
+                                changeStatusBarColor(vibrantColor);
+                            }
+                        });
+                        return false;
+                    }
+                })
+                .into(backDrop);
+    }
+
     private void initUI() {
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         toolbarSubtitle = (TextView) findViewById(R.id.toolbar_subtitle);
         contentLinearLayout = (LinearLayout) findViewById(R.id.ll_container);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);

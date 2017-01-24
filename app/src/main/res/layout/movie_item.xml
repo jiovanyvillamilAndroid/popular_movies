@@ -3,18 +3,19 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_margin="4dp"
-    android:focusable="true"
+    android:layout_height="@dimen/movie_item_height"
+    android:layout_margin="@dimen/common_4dp_dimen"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardElevation="2dp"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardCornerRadius="@dimen/common_8dp_dimen"
+    card_view:cardElevation="@dimen/card_elevation_movie_item">
 
     <ImageView
         android:id="@+id/iv_movie_poster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/poster_content_description"
         tools:src="@mipmap/ic_launcher" />
 
     <LinearLayout
@@ -23,7 +24,7 @@
         android:layout_gravity="bottom"
         android:background="@color/colorDarkMovieFooter"
         android:orientation="vertical"
-        android:padding="2dp">
+        android:padding="@dimen/common_2dp_dimen">
 
         <TextView
             android:id="@+id/tv_movie_title"
